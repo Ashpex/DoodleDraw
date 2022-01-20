@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\bold.png" />
+    <None Remove="Images\crop.png" />
+    <None Remove="Images\delete.png" />
+    <None Remove="Images\filll.png" />
+    <None Remove="Images\italic.png" />
+    <None Remove="Images\redo.jpg" />
+    <None Remove="Images\rotate.jpg" />
+    <None Remove="Images\text.png" />
+    <None Remove="Images\uderline.png" />
+    <None Remove="Images\undo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contract\Contract.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\bold.png" />
+    <Resource Include="Images\crop.png" />
+    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\filll.png" />
+    <Resource Include="Images\italic.png" />
+    <Resource Include="Images\redo.jpg" />
+    <Resource Include="Images\rotate.jpg" />
+    <Resource Include="Images\text.png" />
+    <Resource Include="Images\uderline.png" />
+    <Resource Include="Images\undo.jpg" />
+  </ItemGroup>
+
+</Project>
