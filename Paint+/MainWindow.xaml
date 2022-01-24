@@ -1,0 +1,283 @@
+﻿<Fluent:RibbonWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Fluent="urn:fluent-ribbon"
+        xmlns:local="clr-namespace:Paint_" x:Class="Paint_.MainWindow"
+        Title="Painting .NET" Height="640" Width="1080" SizeChanged="Window_SizeChanged" Closing="Window_Closing"
+        Icon="Res/paint.ico">
+    <Window.Resources>
+        <local:FluentColorConvert x:Key="FluentColorConvert"/>
+        <local:TransparentToBool x:Key="TransparentToBool"/>
+        <local:BoolToVisibility x:Key="BoolToVisibility"/>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <Fluent:StatusBar DockPanel.Dock="Bottom">
+            <Fluent:StatusBarItem Title="Current Mouse Pos"
+                          HorizontalAlignment="Left">
+                <TextBlock x:Name="lblCursorPosition"/>
+            </Fluent:StatusBarItem>
+            <Separator HorizontalAlignment="Left"/>
+
+            <Fluent:StatusBarItem Title="Canvas Size"
+                          HorizontalAlignment="Right" Margin="50 0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Zoom: "/>
+                    <TextBlock x:Name="ScalePercent"/>
+                    <TextBlock Text="%"/>
+                    <!--<Slider x:Name="sliderZoom" Margin="20 0" Width="150" Value="50" Maximum="100" TickPlacement="BottomRight" TickFrequency="50"></Slider>-->
+                    <!--<ComboBox x:Name="zoomValue" Margin="20 0 0 0"/>-->
+                </StackPanel>
+            </Fluent:StatusBarItem>
+
+            <Fluent:StatusBarItem Title="Canvas Size"
+                          HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="W: "/>
+                    <TextBlock Text="{Binding ElementName=MainCanvas, Path=ActualWidth}"/>
+                    <TextBlock Text=" x H: "/>
+                    <TextBlock Text="{Binding ElementName=MainCanvas, Path=ActualHeight}"/>
+                </StackPanel>
+            </Fluent:StatusBarItem>
+        </Fluent:StatusBar>
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Fluent:Ribbon x:Name="MainRibbon" Grid.Row="0" SelectedTabIndex="0">
+                <!--Contextual Tab Groups-->
+                <Fluent:Ribbon.ContextualGroups>
+                    <Fluent:RibbonContextualTabGroup x:Name="textToolsGroup"
+                                     Header="Text Tools" 
+                                     Visibility="Collapsed"
+                                     Background="Green" 
+                                     BorderBrush="Green" />
+                </Fluent:Ribbon.ContextualGroups>
+
+                <Fluent:Ribbon.QuickAccessItems>
+                    <Fluent:QuickAccessMenuItem IsChecked="True" Target="{Binding ElementName=btnSave}"/>
+                    <Fluent:QuickAccessMenuItem IsChecked="False" Target="{Binding ElementName=btnNew}"/>
+                    <Fluent:QuickAccessMenuItem IsChecked="False" Target="{Binding ElementName=btnOpen}"/>
+                    <Fluent:QuickAccessMenuItem IsChecked="False" Target="{Binding ElementName=btnPrint}"/>
+                    <Fluent:QuickAccessMenuItem IsChecked="True">
+                        <Fluent:Button x:Name="btnUndo" Header="Undo" Icon="Res\undo.png" Click="btnUndo_Click"/>
+                    </Fluent:QuickAccessMenuItem>
+                    <Fluent:QuickAccessMenuItem IsChecked="True">
+                        <Fluent:Button x:Name="btnRedo" Header="Redo" Icon="Res\redo.png" Click="btnRedo_Click"/>
+                    </Fluent:QuickAccessMenuItem>
+                </Fluent:Ribbon.QuickAccessItems>
+
+                <!--Application Menu-->
+                <Fluent:Ribbon.Menu>
+                    <Fluent:ApplicationMenu>
+                        <Fluent:Button x:Name="btnNew" KeyTip="N" Header="New" Icon="Res\new.png" LargeIcon="Res\new.png" Click="btnNew_Click"/>
+                        <Fluent:Button x:Name="btnOpen" KeyTip="O" Header="Open" Icon="Res\open.png" LargeIcon="Res\open.png" Click="btnOpen_Click"/>
+                        <Fluent:Button x:Name="btnSave" KeyTip="N" Header="Save" Icon="Res\save.png" LargeIcon="Res\save.png" Click="btnSave_Click"/>
+                        <Fluent:Button x:Name="btnPrint" KeyTip="P" Header="Print" Icon="Res\printer.png" LargeIcon="Res\printer.png" Click="btnPrint_Click"/>
+                    </Fluent:ApplicationMenu>
+                </Fluent:Ribbon.Menu>
+
+                <!--Tabs-->
+                <!--Contextual Tabs-->
+                <Fluent:RibbonTabItem KeyTip="T" Width="80" Header="Text" Group="{Binding ElementName=textToolsGroup}" Visibility="{Binding ElementName=textToolsGroup, Path=Visibility}">
+                    <Fluent:RibbonGroupBox Header="Font">
+                        <StackPanel Orientation="Vertical">
+                            <ComboBox x:Name="fontFamily" Margin="5" SelectedIndex="0" ItemsSource="{Binding Source={x:Static Fonts.SystemFontFamilies}}" SelectionChanged="fontFamilySelected"></ComboBox>
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox x:Name="fontSize" SelectionChanged="fontSizeSelected" Width="50" Margin="5"></ComboBox>
+                                <ToggleButton x:Name="textBold" Margin="{Binding ElementName=fontSize, Path=Margin}"
+                                        Background="Transparent" BorderThickness="0"
+                                        Click="OnClick_BoldTextBtn">
+                                    <Image Source="Res\bold.png"  RenderOptions.BitmapScalingMode="Fant" 
+                                       Stretch="Fill" Width="19" Height="19"/>
+                                </ToggleButton>
+                                <ToggleButton x:Name="textItalic" Margin="{Binding ElementName=fontSize, Path=Margin}"
+                                        Background="Transparent" BorderThickness="0"
+                                        Click="OnClick_ItalicTextBtn">
+                                    <Image Source="Res\italic.png"  RenderOptions.BitmapScalingMode="Fant" 
+                                       Stretch="Fill" Width="19" Height="19"/>
+                                </ToggleButton>
+                                <ToggleButton x:Name="textUnderline" Margin="{Binding ElementName=fontSize, Path=Margin}"
+                                        Background="Transparent" BorderThickness="0"
+                                        Click="OnClick_UnderlineTextBtn">
+                                    <Image Source="Res\underline.png"  RenderOptions.BitmapScalingMode="Fant" 
+                                       Stretch="Fill" Width="19" Height="19"/>
+                                </ToggleButton>
+                                <ToggleButton x:Name="textStrikethrough" Margin="{Binding ElementName=fontSize, Path=Margin}"
+                                        Background="Transparent" BorderThickness="0"
+                                        Click="OnClick_StrikethroughTextBtn">
+                                    <Image Source="Res\strikethrough.png"  RenderOptions.BitmapScalingMode="Fant" 
+                                       Stretch="Fill" Width="19" Height="19"/>
+                                </ToggleButton>
+                            </StackPanel>
+                        </StackPanel>
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="Color Text">
+                        <Fluent:DropDownButton Header="Choose" LargeIcon="Res\color.picker.png">
+                            <Fluent:ColorGallery x:Name="colorTextPicker" IsAutomaticColorButtonVisible="False" IsRecentColorsVisible="True" IsNoColorButtonVisible="False" SelectedColorChanged="Text_ColorChanged" SelectedColor="Black"/>
+                        </Fluent:DropDownButton>
+                        <Border Margin="5" BorderBrush="Black" BorderThickness="1">
+                            <Rectangle Width="32" Height="32" Fill="{Binding ElementName=colorTextPicker, Path=SelectedColor, Converter={StaticResource FluentColorConvert}}"></Rectangle>
+                        </Border>
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="Edit Text">
+                        <TextBox x:Name="textBoxTyping" AcceptsReturn="True" AcceptsTab="True" Width="300" Height="60" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Text="Hello Word!" TextChanged="editTextTyping"></TextBox>
+                    </Fluent:RibbonGroupBox>
+                </Fluent:RibbonTabItem>
+                <Fluent:RibbonTabItem Header="Home" KeyTip="H">
+                    <!--<Fluent:RibbonGroupBox Header="Select">
+                        <RadioButton x:Name="btnSelect" Width="32" Height="32" GroupName="Shape" Tag="0" Style="{StaticResource {x:Type ToggleButton}}" IsChecked="True" Background="Transparent" BorderThickness="0" Checked="ShapeChecked">
+                            <Image Source="Res\select.png"/>
+                        </RadioButton>
+                    </Fluent:RibbonGroupBox>-->
+                    <Fluent:RibbonGroupBox Header="Color Picker">
+                        <Fluent:DropDownButton x:Name="outlineColorBtn" KeyTip="O" Header="Outline" LargeIcon="Res\color.picker.png">
+                            <Fluent:ColorGallery x:Name="outlineColorPicker" IsAutomaticColorButtonVisible="False" IsRecentColorsVisible="True" IsNoColorButtonVisible="False" SelectedColorChanged="Outline_ColorChanged" SelectedColor="Black"/>
+                        </Fluent:DropDownButton>
+                        <Border Margin="10 10 20 10" BorderBrush="Black" BorderThickness="1">
+                            <Rectangle Width="32" Height="32" Fill="{Binding ElementName=outlineColorPicker, Path=SelectedColor, Converter={StaticResource FluentColorConvert}}"></Rectangle>
+                        </Border>
+                        <Fluent:DropDownButton x:Name="fillColorBtn" KeyTip="I" IsEnabled="True" Header="Fill" LargeIcon="Res\color.fill.png">
+                            <Fluent:ColorGallery x:Name="fillColorPicker" IsAutomaticColorButtonVisible="False" IsRecentColorsVisible="True" IsNoColorButtonVisible="True" SelectedColorChanged="Fill_ColorChanged" SelectedColor="Transparent"/>
+                        </Fluent:DropDownButton>
+                        <Border Margin="10" BorderBrush="Black" BorderThickness="1">
+                            <Grid>
+                                <Image Source="Res\transparent.png" RenderOptions.BitmapScalingMode="Fant" 
+                                       Stretch="Fill" Width="32" Height="32" Visibility="{Binding ElementName=fillColorPicker, Path=SelectedColor, Converter={StaticResource TransparentToBool}}"/>
+                                <Rectangle Width="32" Height="32" Fill="{Binding ElementName=fillColorPicker, Path=SelectedColor, Converter={StaticResource FluentColorConvert}}"></Rectangle>
+                            </Grid>
+                        </Border>
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="Styles - Width">
+                        <Fluent:DropDownButton Header="Styles" KeyTip="S" LargeIcon="Res\styles.png">
+                            <RadioButton GroupName="Styles" Tag="0" Style="{StaticResource {x:Type ToggleButton}}" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" IsChecked="True" Checked="StyleChecked">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Res\DashStyleButton.Solid.png"/>
+                                    <TextBlock Margin="10" Text="Solid"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton GroupName="Styles" Tag="1" Style="{StaticResource {x:Type ToggleButton}}" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Checked="StyleChecked">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Res\DashStyleButton.Dash.png"/>
+                                    <TextBlock Margin="10" Text="Dash"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton GroupName="Styles" Tag="2" Style="{StaticResource {x:Type ToggleButton}}" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Checked="StyleChecked">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Res\DashStyleButton.Dot.png"/>
+                                    <TextBlock Margin="10" Text="Dot"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton GroupName="Styles" Tag="3" Style="{StaticResource {x:Type ToggleButton}}" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Checked="StyleChecked">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Res\DashStyleButton.DashDot.png"/>
+                                    <TextBlock Margin="10" Text="DashDot"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton GroupName="Styles" Tag="4" Style="{StaticResource {x:Type ToggleButton}}" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Checked="StyleChecked">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Res\DashStyleButton.DashDotDot.png"/>
+                                    <TextBlock Margin="10" Text="DashDotDot"/>
+                                </StackPanel>
+                            </RadioButton>
+                        </Fluent:DropDownButton>
+                        <Fluent:DropDownButton Header="Size" KeyTip="Z" LargeIcon="Res\width.png">
+                            <RadioButton Tag="1" GroupName="Width" Style="{StaticResource {x:Type ToggleButton}}" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" IsChecked="True" Checked="WidthChecked">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Res\size.1.png"/>
+                                    <TextBlock Margin="10" Text="Size 1"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton Tag="2"  GroupName="Width" Style="{StaticResource {x:Type ToggleButton}}" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Checked="WidthChecked">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Res\size.2.png"/>
+                                    <TextBlock Margin="10" Text="Size 2"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton Tag="3" GroupName="Width" Style="{StaticResource {x:Type ToggleButton}}" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Checked="WidthChecked">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Res\size.3.png"/>
+                                    <TextBlock Margin="10" Text="Size 3"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton Tag="5" GroupName="Width" Style="{StaticResource {x:Type ToggleButton}}" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Checked="WidthChecked">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Res\size.5.png"/>
+                                    <TextBlock Margin="10" Text="Size 5"/>
+                                </StackPanel>
+                            </RadioButton>
+                        </Fluent:DropDownButton>
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="Paint Tools">
+                        <RadioButton x:Name="eraseBtn" GroupName="Shape" Tag="8" Style="{StaticResource {x:Type ToggleButton}}" Background="Transparent" BorderThickness="0" Checked="ShapeChecked">
+                            <StackPanel>
+                                <Image Source="Res\erase.png"/>
+                                <TextBlock Text="Erase" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton GroupName="Shape" Tag="7" Style="{StaticResource {x:Type ToggleButton}}" Background="Transparent" BorderThickness="0" Checked="ShapeChecked">
+                            <StackPanel>
+                                <Image Source="Res\fill.color.png"/>
+                                <TextBlock Text="Fill" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton GroupName="Shape" Tag="6" Style="{StaticResource {x:Type ToggleButton}}" Background="Transparent" BorderThickness="0" Checked="ShapeChecked">
+                            <StackPanel>
+                                <Image Source="Res\typing.png"/>
+                                <TextBlock Text="Typing" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="Shapes">
+                        <Fluent:InRibbonGallery MinItemsInRow="1" MaxItemsInRow="3" Orientation="Horizontal" ItemWidth="40" ItemHeight="40" Width="150">
+                            <Fluent:InRibbonGallery.Items>
+                                <RadioButton GroupName="Shape" Tag="4" Style="{StaticResource {x:Type ToggleButton}}" Background="Transparent" BorderThickness="0" Checked="ShapeChecked" IsChecked="True">
+                                    <Image Source="Res\pencil.png"/>
+                                </RadioButton>
+                                <RadioButton GroupName="Shape" Tag="2" Style="{StaticResource {x:Type ToggleButton}}" Background="Transparent" BorderThickness="0" Checked="ShapeChecked">
+                                    <Image Source="Res\line.png"/>
+                                </RadioButton>
+                                <RadioButton GroupName="Shape" Tag="1" Style="{StaticResource {x:Type ToggleButton}}" Background="Transparent" BorderThickness="0" Checked="ShapeChecked">
+                                    <Image Source="Res\rectangle.png"/>
+                                </RadioButton>
+                                <RadioButton GroupName="Shape" Tag="3" Style="{StaticResource {x:Type ToggleButton}}" Background="Transparent" BorderThickness="0" Checked="ShapeChecked">
+                                    <Image Source="Res\ellipse.png"/>
+                                </RadioButton>
+                                <RadioButton GroupName="Shape" Tag="5" Style="{StaticResource {x:Type ToggleButton}}" Background="Transparent" BorderThickness="0" Checked="ShapeChecked">
+                                    <Image Source="Res\polygon.png"/>
+                                </RadioButton>
+                            </Fluent:InRibbonGallery.Items>
+                        </Fluent:InRibbonGallery>
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="Tools">
+                        <Button Background="Transparent" BorderThickness="0" Click="btnReSize_Click">
+                            <StackPanel>
+                                <Image Source="Res\resize.png"/>
+                                <TextBlock Text="Resize" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <StackPanel Visibility="{Binding ElementName=eraseBtn, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" Margin="10" Orientation="Vertical">
+                            <ComboBox x:Name="sizeErase" SelectionChanged="sizeEraseChanged"></ComboBox>
+                            <TextBlock Margin="0 12 0 0" Text="Size Erase" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Fluent:RibbonGroupBox>
+                </Fluent:RibbonTabItem>
+            </Fluent:Ribbon>
+            <ScrollViewer x:Name="ScrollView" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Foreground="#FFE02929" Background="#FFAAAAAA" MouseMove="ScrollView_MouseMove" MouseDown="ScrollView_MouseDown" MouseUp="ScrollView_MouseUp">
+                <Canvas x:Name="MainCanvas" Grid.Row="1" ClipToBounds="true" MouseMove="MainCanvas_MouseMove" MouseUp="MainCanvas_MouseUp" MouseDown="MainCanvas_MouseDown" PreviewMouseLeftButtonDown="MainCanvas_PreviewMouseLeftButtonDown" Height="440" Width="804" Background="White" MouseWheel="Canvas_MouseWheel">
+                    <Canvas.RenderTransform>
+                        <ScaleTransform x:Name="Transform"/>
+                    </Canvas.RenderTransform>
+                    <Canvas.ContextMenu>
+                        <ContextMenu >
+                            <MenuItem Header="Delete" Click="MenuItem_Delete_Click"/>
+                            
+                            <!--<MenuItem Header="Paste" Click="Paste_Click"/>-->
+                        </ContextMenu>
+                    </Canvas.ContextMenu>
+                    <Image x:Name="MainCanvasImage" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"/>
+                </Canvas>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+</Fluent:RibbonWindow>

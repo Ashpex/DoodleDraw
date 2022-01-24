@@ -1,0 +1,24 @@
+﻿<Window x:Class="Paint_.ResizeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Paint_"
+        mc:Ignorable="d"
+        WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize"
+        Title="ResizeWindow" Height="100" Width="300">
+    <Border BorderBrush="Black" BorderThickness="1">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Margin="10 20 10 10" Orientation="Horizontal">
+                <TextBlock Margin="10 0 10 0"  Text="Width"/>
+                <TextBox x:Name="WidthValue" Width="70" PreviewTextInput="OnlyNumber"/>
+                <TextBlock Margin="10 0 10 0" Text="Height"/>
+                <TextBox x:Name="HeightValue" Width="70" PreviewTextInput="OnlyNumber"/>
+            </StackPanel>
+            <StackPanel Margin="10" Orientation="Horizontal">
+                <Button Margin="53 0 45 0" Width="70" Click="OnClick_OK">OK</Button>
+                <Button Margin="10 0" Width="70" Click="OnClick_Cancel">Cancel</Button>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>
