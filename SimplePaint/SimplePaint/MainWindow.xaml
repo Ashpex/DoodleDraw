@@ -1,0 +1,54 @@
+﻿<Fluent:RibbonWindow x:Class="SimplePaint.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+        xmlns:local="clr-namespace:SimplePaint"
+        mc:Ignorable="d"
+        Title="Simple Paint" Height="450" Width="800" Loaded="RibbonWindow_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Fluent:Ribbon Grid.Row="0">
+            <!--Backstage-->
+            <Fluent:Ribbon.Menu>
+                <Fluent:Backstage Header="File">
+                    <Fluent:BackstageTabControl>
+                        <Fluent:BackstageTabItem Header="New">
+                            <Button Content="New File" Width="80" Height="35" ></Button>
+                        </Fluent:BackstageTabItem>
+                    </Fluent:BackstageTabControl>
+                </Fluent:Backstage>
+            </Fluent:Ribbon.Menu>
+
+            <!--Tabs-->
+            <Fluent:RibbonTabItem Header="Home">
+                <Fluent:RibbonGroupBox Header="Options">
+                    <Label Content="Method"></Label>
+                    <ComboBox  Width="125" Name="methodComboBox" DisplayMemberPath="Value.Name"
+          SelectedValuePath="Key" ItemsSource="{Binding _prototypes}"   >
+                        
+                        
+                    </ComboBox>
+                    
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+        </Fluent:Ribbon>
+        <Grid Grid.Row="1" Margin="0 0 0 0">
+            <Canvas x:Name="canvas" Background="White">
+
+            </Canvas>
+            <Border Background="Transparent" MouseDown="canvas_MouseDown" 
+                MouseMove="canvas_MouseMove" 
+                MouseUp="canvas_MouseUp">
+
+            </Border>
+        </Grid>
+    </Grid>
+</Fluent:RibbonWindow>
