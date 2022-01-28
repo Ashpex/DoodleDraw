@@ -16,6 +16,6 @@ namespace Contract
         UIElement Draw();
         IShape Clone();
 
-        void setValue(Color color, double strokeThickness);
+        public void setValue(Color color, double strokeThickness, double border);
     }
 }

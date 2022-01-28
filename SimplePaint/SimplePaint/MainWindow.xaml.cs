@@ -145,7 +145,8 @@ namespace SimplePaint
                 System.Drawing.Color getColor = System.Drawing.Color.FromName(colorComboBox.Text);
                 //_preview.Color = Color.FromArgb(getColor.A, getColor.R, getColor.G, getColor.B);
                 double size = double.Parse(sizeComboBox.Text);
-                _preview.setValue(Color.FromArgb(getColor.A, getColor.R, getColor.G, getColor.B), size);
+                double border = double.Parse(borderComboBox.Text);
+                _preview.setValue(Color.FromArgb(getColor.A, getColor.R, getColor.G, getColor.B), size, border);
                 _preview.HandleStart(pos.X, pos.Y);
             }
         }

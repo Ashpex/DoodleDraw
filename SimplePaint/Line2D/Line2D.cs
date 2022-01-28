@@ -14,6 +14,7 @@ namespace Line2D
         public string Name => "Line";
         public System.Windows.Media.Color Color = Colors.Black;
         public double StrokeThickness = 1;
+        public double Border = 0;
         public void HandleStart(double x, double y)
         {
             _start = new Point2D() { X = x, Y = y };
@@ -26,15 +27,33 @@ namespace Line2D
 
         public UIElement Draw()
         {
-            Line l = new Line()
+            Line l;
+            if (Border != 0)
             {
-                X1 = _start.X,
-                Y1 = _start.Y,
-                X2 = _end.X,
-                Y2 = _end.Y,
-                StrokeThickness = StrokeThickness,
-                Stroke = new SolidColorBrush(Color),
-            };
+                l = new Line()
+                {
+                    X1 = _start.X,
+                    Y1 = _start.Y,
+                    X2 = _end.X,
+                    Y2 = _end.Y,
+                    StrokeThickness = StrokeThickness,
+                    Stroke = new SolidColorBrush(Color),
+                    StrokeDashArray = DoubleCollection.Parse(Border.ToString())
+                };
+            }
+            else
+            {
+                l = new Line()
+                {
+                    X1 = _start.X,
+                    Y1 = _start.Y,
+                    X2 = _end.X,
+                    Y2 = _end.Y,
+                    StrokeThickness = StrokeThickness,
+                    Stroke = new SolidColorBrush(Color),
+                    
+                };
+            }
 
             return l;
         }
@@ -43,10 +62,11 @@ namespace Line2D
         {
             return new Line2D();
         }
-        public void setValue(Color color, double strokeThickness)
+        public void setValue(Color color, double strokeThickness, double border)
         {
             Color = color;
             StrokeThickness = strokeThickness;
+            Border = border;
         }
     }
 }

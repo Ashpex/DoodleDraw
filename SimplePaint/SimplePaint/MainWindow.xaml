@@ -66,6 +66,16 @@
                             <ComboBoxItem Content="Blue" ></ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
+                    <StackPanel Margin="5 5 5 5">
+                        <Label Content="Border"></Label>
+                        <ComboBox x:Name="borderComboBox" >
+                            <ComboBoxItem Content="0" IsSelected="True"></ComboBoxItem>
+                            <ComboBoxItem Content="1" ></ComboBoxItem>
+                            <ComboBoxItem Content="2" ></ComboBoxItem>
+                            <ComboBoxItem Content="3" ></ComboBoxItem>
+                            <ComboBoxItem Content="4" ></ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
                 </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox Header="Save and load">
                     <Fluent:Button Header="Load Images" Name="LoadImages" Click="LoadImages_Click">

@@ -18,7 +18,7 @@ namespace Contract
 
         public Color Color { get => Colors.Black; set => Color = value; }
         public double StrokeThickness { get => 1; set => StrokeThickness=value; }
-
+        public double Border = 0;
         public void HandleStart(double x, double y)
         {
             X = x;
@@ -56,10 +56,11 @@ namespace Contract
             throw new NotImplementedException();
         }
 
-        public void setValue(Color color, double strokeThickness)
+        public void setValue(Color color, double strokeThickness, double border)
         {
             Color = color;
             StrokeThickness = strokeThickness;
+            Border = border;
         }
     }
 }

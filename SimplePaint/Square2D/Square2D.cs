@@ -15,15 +15,32 @@ namespace Square2D
         public string Name => "Square";
         public System.Windows.Media.Color Color = Colors.Black;
         public double StrokeThickness = 1;
+        public double Border = 0;
         public UIElement Draw()
         {
-            var square = new Rectangle()
+            Rectangle square;
+            if (Border != 0)
             {
-                Width = Math.Abs(_rightBottom.X - _leftTop.X),
-                Height = Math.Abs(_rightBottom.X - _leftTop.X),
-                Stroke = new SolidColorBrush(Color),
-                StrokeThickness = StrokeThickness
-            };
+                square = new Rectangle()
+                {
+                    Width = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Height = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Stroke = new SolidColorBrush(Color),
+                    StrokeThickness = StrokeThickness,
+                    StrokeDashArray = DoubleCollection.Parse(Border.ToString())
+                };
+            }
+            else
+            {
+                square = new Rectangle()
+                {
+                    Width = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Height = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Stroke = new SolidColorBrush(Color),
+                    StrokeThickness = StrokeThickness,
+                    StrokeDashArray = DoubleCollection.Parse(Border.ToString())
+                };
+            }
 
             if (_leftTop.X - _rightBottom.X < 0 && _leftTop.Y - _rightBottom.Y < 0)
             {
@@ -65,10 +82,11 @@ namespace Square2D
         {
             return new Square2D();
         }
-        public void setValue(Color color, double strokeThickness)
+        public void setValue(Color color, double strokeThickness, double border)
         {
             Color = color;
             StrokeThickness = strokeThickness;
+            Border = border;
         }
     }
 }

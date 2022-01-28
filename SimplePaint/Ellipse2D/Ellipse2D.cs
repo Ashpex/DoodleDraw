@@ -15,16 +15,33 @@ namespace Ellipse2D
         public string Name => "Ellipse";
         public Color Color = Colors.Black;
         public double StrokeThickness = 1;
-
+        public double Border = 0;
         public UIElement Draw()
         {
-            var ellipse = new Ellipse()
+            Ellipse ellipse;
+            if (Border != 0)
             {
-                Width = Math.Abs(_rightBottom.X - _leftTop.X),
-                Height = Math.Abs(_rightBottom.Y - _leftTop.Y),
-                Stroke = new SolidColorBrush(Color),
-                StrokeThickness = StrokeThickness
-            };
+                ellipse = new Ellipse()
+                {
+                    Width = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Height = Math.Abs(_rightBottom.Y - _leftTop.Y),
+                    Stroke = new SolidColorBrush(Color),
+                    StrokeThickness = StrokeThickness,
+                    StrokeDashArray = DoubleCollection.Parse(Border.ToString())
+                };
+            }
+            else
+            {
+                ellipse = new Ellipse()
+                {
+                    Width = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Height = Math.Abs(_rightBottom.Y - _leftTop.Y),
+                    Stroke = new SolidColorBrush(Color),
+                    StrokeThickness = StrokeThickness,
+                    
+                };
+
+            }
             if (_leftTop.X - _rightBottom.X < 0 && _leftTop.Y - _rightBottom.Y < 0)
             {
                 Canvas.SetLeft(ellipse, _leftTop.X);
@@ -64,10 +81,11 @@ namespace Ellipse2D
         {
             return new Ellipse2D();
         }
-        public void setValue(Color color, double strokeThickness)
+        public void setValue(Color color, double strokeThickness, double border)
         {
             Color = color;
             StrokeThickness = strokeThickness;
+            Border = border;
         }
     }
 }

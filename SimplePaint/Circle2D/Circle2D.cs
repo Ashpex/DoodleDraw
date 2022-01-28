@@ -16,17 +16,34 @@ namespace Circle2D
 
         public Color Color = Colors.Black;
         public double StrokeThickness = 1;
+        public double Border = 5;
 
        
         public UIElement Draw()
         {
-            var circle = new Ellipse()
+            Ellipse circle;
+            if (Border != 0)
             {
-                Width = Math.Abs(_rightBottom.X - _leftTop.X),
-                Height = Math.Abs(_rightBottom.X - _leftTop.X),
-                Stroke = new SolidColorBrush(Color),
-                StrokeThickness = StrokeThickness
-            };
+                circle = new Ellipse()
+                {
+                    Width = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Height = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Stroke = new SolidColorBrush(Color),
+                    StrokeThickness = StrokeThickness,
+                    StrokeDashArray = DoubleCollection.Parse(Border.ToString())
+                };
+            }
+            else
+            {
+                circle = new Ellipse()
+                {
+                    Width = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Height = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Stroke = new SolidColorBrush(Color),
+                    StrokeThickness = StrokeThickness,
+                    
+                };
+            }
             if (_leftTop.X - _rightBottom.X < 0 && _leftTop.Y - _rightBottom.Y < 0)
             {
                 Canvas.SetLeft(circle, _leftTop.X);
@@ -68,10 +85,11 @@ namespace Circle2D
             return new Circle2D();
         }
 
-        public void  setValue(Color color, double strokeThickness)
+        public void  setValue(Color color, double strokeThickness,double border)
         {
             Color = color;
             StrokeThickness = strokeThickness;
+            Border = border;
         }
     }
 }

@@ -15,15 +15,32 @@ namespace Rectangle2D
         public string Name => "Rectangle";
         public System.Windows.Media.Color Color = Colors.Black;
         public double StrokeThickness = 1;
+        public double Border = 0;
         public UIElement Draw()
         {
-            var rect = new Rectangle()
+            Rectangle rect;
+            if (Border != 0)
             {
-                Width = Math.Abs(_rightBottom.X - _leftTop.X),
-                Height = Math.Abs(_rightBottom.Y - _leftTop.Y),
-                Stroke = new SolidColorBrush(Color),
-                StrokeThickness = StrokeThickness
-            };
+                rect = new Rectangle()
+                {
+                    Width = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Height = Math.Abs(_rightBottom.Y - _leftTop.Y),
+                    Stroke = new SolidColorBrush(Color),
+                    StrokeThickness = StrokeThickness,
+                    StrokeDashArray = DoubleCollection.Parse(Border.ToString())
+                };
+            }
+            else
+            {
+                rect = new Rectangle()
+                {
+                    Width = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Height = Math.Abs(_rightBottom.Y - _leftTop.Y),
+                    Stroke = new SolidColorBrush(Color),
+                    StrokeThickness = StrokeThickness,
+                   
+                };
+            }
             if (_leftTop.X - _rightBottom.X < 0 && _leftTop.Y - _rightBottom.Y < 0)
             {
                 Canvas.SetLeft(rect, _leftTop.X);
@@ -62,10 +79,11 @@ namespace Rectangle2D
         {
             return new Rectangle2D();
         }
-        public void setValue(Color color, double strokeThickness)
+        public void setValue(Color color, double strokeThickness, double border)
         {
             Color = color;
             StrokeThickness = strokeThickness;
+            Border = border;
         }
     }
 }
