@@ -142,6 +142,10 @@ namespace SimplePaint
             Point pos = e.GetPosition(canvas);
             if (_preview != null)
             {
+                System.Drawing.Color getColor = System.Drawing.Color.FromName(colorComboBox.Text);
+                //_preview.Color = Color.FromArgb(getColor.A, getColor.R, getColor.G, getColor.B);
+                double size = double.Parse(sizeComboBox.Text);
+                _preview.setValue(Color.FromArgb(getColor.A, getColor.R, getColor.G, getColor.B), size);
                 _preview.HandleStart(pos.X, pos.Y);
             }
         }
@@ -151,30 +155,33 @@ namespace SimplePaint
           
             if (_isDrawing)
             {
-                Point pos = e.GetPosition(canvas);
-                _preview.HandleEnd(pos.X, pos.Y);
-
-                // Xoá hết các hình vẽ cũ
-                canvas.Children.Clear();
-
-                // Vẽ lại các hình trước đó
-                for (int i = 0; i < _shapes.Count; i++)
+                if (_preview != null)
                 {
-                    if (images.ContainsKey(i))
+                    Point pos = e.GetPosition(canvas);
+                    _preview.HandleEnd(pos.X, pos.Y);
+
+                    // Xoá hết các hình vẽ cũ
+                    canvas.Children.Clear();
+
+                    // Vẽ lại các hình trước đó
+                    for (int i = 0; i < _shapes.Count; i++)
                     {
-                        foreach (var image in images[i])
+                        if (images.ContainsKey(i))
                         {
-                            canvas.Children.Add(image);
+                            foreach (var image in images[i])
+                            {
+                                canvas.Children.Add(image);
+                            }
                         }
+
+                        var element = _shapes[i].Draw();
+                        canvas.Children.Add(element);
                     }
-                    var element = _shapes[i].Draw();
-                    canvas.Children.Add(element);
+
+                    // Vẽ hình preview đè lên
+                    canvas.Children.Add(_preview.Draw());
+
                 }
-
-                // Vẽ hình preview đè lên
-                canvas.Children.Add(_preview.Draw());
-
-                
             }
         }
 

@@ -16,6 +16,9 @@ namespace Contract
 
         public string Name => "Point";
 
+        public Color Color { get => Colors.Black; set => Color = value; }
+        public double StrokeThickness { get => 1; set => StrokeThickness=value; }
+
         public void HandleStart(double x, double y)
         {
             X = x;
@@ -36,8 +39,8 @@ namespace Contract
                 Y1 = Y,
                 X2 = X,
                 Y2 = Y,
-                StrokeThickness = 1,
-                Stroke = new SolidColorBrush(Colors.Red),
+                StrokeThickness = StrokeThickness,
+                Stroke = new SolidColorBrush(Color),
             };
 
             return l;
@@ -51,6 +54,12 @@ namespace Contract
         UIElement IShape.Draw()
         {
             throw new NotImplementedException();
+        }
+
+        public void setValue(Color color, double strokeThickness)
+        {
+            Color = color;
+            StrokeThickness = strokeThickness;
         }
     }
 }

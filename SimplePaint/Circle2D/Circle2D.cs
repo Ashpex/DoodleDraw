@@ -14,14 +14,18 @@ namespace Circle2D
 
         public string Name => "Circle";
 
+        public Color Color = Colors.Black;
+        public double StrokeThickness = 1;
+
+       
         public UIElement Draw()
         {
             var circle = new Ellipse()
             {
                 Width = Math.Abs(_rightBottom.X - _leftTop.X),
                 Height = Math.Abs(_rightBottom.X - _leftTop.X),
-                Stroke = new SolidColorBrush(Colors.Red),
-                StrokeThickness = 1
+                Stroke = new SolidColorBrush(Color),
+                StrokeThickness = StrokeThickness
             };
             if (_leftTop.X - _rightBottom.X < 0 && _leftTop.Y - _rightBottom.Y < 0)
             {
@@ -62,6 +66,12 @@ namespace Circle2D
         public IShape Clone()
         {
             return new Circle2D();
+        }
+
+        public void  setValue(Color color, double strokeThickness)
+        {
+            Color = color;
+            StrokeThickness = strokeThickness;
         }
     }
 }

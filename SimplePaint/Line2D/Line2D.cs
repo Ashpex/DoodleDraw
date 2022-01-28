@@ -12,7 +12,8 @@ namespace Line2D
         private Point2D _end = new Point2D();
 
         public string Name => "Line";
-
+        public System.Windows.Media.Color Color = Colors.Black;
+        public double StrokeThickness = 1;
         public void HandleStart(double x, double y)
         {
             _start = new Point2D() { X = x, Y = y };
@@ -31,8 +32,8 @@ namespace Line2D
                 Y1 = _start.Y,
                 X2 = _end.X,
                 Y2 = _end.Y,
-                StrokeThickness = 1,
-                Stroke = new SolidColorBrush(Colors.Red),
+                StrokeThickness = StrokeThickness,
+                Stroke = new SolidColorBrush(Color),
             };
 
             return l;
@@ -41,6 +42,11 @@ namespace Line2D
         public IShape Clone()
         {
             return new Line2D();
+        }
+        public void setValue(Color color, double strokeThickness)
+        {
+            Color = color;
+            StrokeThickness = strokeThickness;
         }
     }
 }

@@ -29,19 +29,45 @@
 
             <!--Tabs-->
             <Fluent:RibbonTabItem Header="Home">
-                <Fluent:RibbonGroupBox Header="Options">
-                    <Label Content="Method"></Label>
+                <Fluent:RibbonGroupBox Header="Tools">
+                    <StackPanel Margin=" 5 5 5 5">
+                    <Label Content="Tools"  ></Label>
                     <ComboBox  Width="125" Name="methodComboBox" DisplayMemberPath="Value.Name"
           SelectedValuePath="Key" ItemsSource="{Binding _prototypes}"  SelectionChanged="methodComboBox_SelectionChanged" >
-                        
-                        
-                    </ComboBox>
-                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="40" Name="prototypesStackPanel">
-                        
-                    </StackPanel>
 
+
+                    </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="40" Name="prototypesStackPanel">
+
+                    </StackPanel>
                 </Fluent:RibbonGroupBox>
-                <Fluent:RibbonGroupBox Header="Tool">
+                <Fluent:RibbonGroupBox Header="Parameter" HorizontalAlignment="Left" >
+
+                    <StackPanel Margin="5 5 5 5">
+                    <Label Content="Size" >
+                    </Label>
+                    <ComboBox x:Name="sizeComboBox">
+                        <ComboBoxItem Content="1" IsSelected="True"></ComboBoxItem>
+                        <ComboBoxItem Content="2" ></ComboBoxItem>
+                        <ComboBoxItem Content="3" ></ComboBoxItem>
+                        <ComboBoxItem Content="4" ></ComboBoxItem>
+                        <ComboBoxItem Content="5" ></ComboBoxItem>
+                    </ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5">
+                        <Label Content="Color">
+                        </Label>
+                        <ComboBox x:Name="colorComboBox" >
+                            <ComboBoxItem Content="Black" IsSelected="True"></ComboBoxItem>
+                            <ComboBoxItem Content="White" ></ComboBoxItem>
+                            <ComboBoxItem Content="Red" ></ComboBoxItem>
+                            <ComboBoxItem Content="Green" ></ComboBoxItem>
+                            <ComboBoxItem Content="Blue" ></ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Save and load">
                     <Fluent:Button Header="Load Images" Name="LoadImages" Click="LoadImages_Click">
                         <Fluent:Button.LargeIcon>
                             <Image Source="/icons/LoadPreset.png"  RenderOptions.BitmapScalingMode="HighQuality"/>

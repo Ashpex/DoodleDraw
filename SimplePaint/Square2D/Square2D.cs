@@ -13,15 +13,16 @@ namespace Square2D
         private Point2D _rightBottom = new Point2D();
 
         public string Name => "Square";
-
+        public System.Windows.Media.Color Color = Colors.Black;
+        public double StrokeThickness = 1;
         public UIElement Draw()
         {
             var square = new Rectangle()
             {
                 Width = Math.Abs(_rightBottom.X - _leftTop.X),
                 Height = Math.Abs(_rightBottom.X - _leftTop.X),
-                Stroke = new SolidColorBrush(Colors.Red),
-                StrokeThickness = 1
+                Stroke = new SolidColorBrush(Color),
+                StrokeThickness = StrokeThickness
             };
 
             if (_leftTop.X - _rightBottom.X < 0 && _leftTop.Y - _rightBottom.Y < 0)
@@ -63,6 +64,11 @@ namespace Square2D
         public IShape Clone()
         {
             return new Square2D();
+        }
+        public void setValue(Color color, double strokeThickness)
+        {
+            Color = color;
+            StrokeThickness = strokeThickness;
         }
     }
 }
