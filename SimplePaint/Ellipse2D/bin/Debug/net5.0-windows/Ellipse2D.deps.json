@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Ellipse2D/1.0.0": {
+        "dependencies": {
+          "Contract": "1.0.0"
+        },
+        "runtime": {
+          "Ellipse2D.dll": {}
+        }
+      },
+      "Contract/1.0.0": {
+        "runtime": {
+          "Contract.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Ellipse2D/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Contract/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

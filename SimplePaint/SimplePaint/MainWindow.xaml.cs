@@ -83,6 +83,7 @@ namespace SimplePaint
         string _selectedShapeName = "";
         bool _isDrawing = false;
         IShape _preview;
+        System.Drawing.Color colorPen;
         private void RibbonWindow_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -142,11 +143,11 @@ namespace SimplePaint
             Point pos = e.GetPosition(canvas);
             if (_preview != null)
             {
-                System.Drawing.Color getColor = System.Drawing.Color.FromName(colorComboBox.Text);
+                //System.Drawing.Color getColor = System.Drawing.Color.FromName(colorComboBox.Text);
                 //_preview.Color = Color.FromArgb(getColor.A, getColor.R, getColor.G, getColor.B);
                 double size = double.Parse(sizeComboBox.Text);
                 double border = double.Parse(borderComboBox.Text);
-                _preview.setValue(Color.FromArgb(getColor.A, getColor.R, getColor.G, getColor.B), size, border);
+                _preview.setValue(Color.FromArgb(colorPen.A, colorPen.R, colorPen.G, colorPen.B), size, border);
                 _preview.HandleStart(pos.X, pos.Y);
             }
         }
@@ -311,6 +312,159 @@ namespace SimplePaint
             {
                 encoder.Save(file);
             }
+        }
+
+        
+
+        
+
+        private void NewFile_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.Title = "Load image";
+            openFileDialog.Filter = "Images|*.png;*.bmp;*.jpg";
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == true)
+            {
+                _preview = null;
+                CreateLoadBitmap(ref canvas, openFileDialog.FileName);
+            };
+            
+        }
+
+        private void SaveFile_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+
+            saveFileDialog.Filter = "Images|*.png";
+            saveFileDialog.Title = "Save as PNG";
+            saveFileDialog.RestoreDirectory = true;
+            Nullable<bool> result = saveFileDialog.ShowDialog();
+            if (result == true)
+            {
+                String fileName = saveFileDialog.FileName;
+                CreateSaveBitmap(canvas, fileName);
+            }
+        }
+
+        private void colorBlack_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Black");
+            penColor.Background= Brushes.Black;
+        }
+
+        private void colorWhite_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("White");
+            penColor.Background = Brushes.White;
+        }
+
+        private void colorGray_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Gray");
+            penColor.Background = Brushes.Gray;
+        }
+
+        private void colorSilver_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Silver");
+            penColor.Background = Brushes.Silver;
+        }
+
+        private void colorMaroon_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Maroon");
+            penColor.Background = Brushes.Maroon;
+        }
+
+        private void colorOlive_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Olive");
+            penColor.Background = Brushes.Olive;
+        }
+
+        private void colorRed_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Red");
+            penColor.Background = Brushes.Red;
+        }
+
+        private void colorMagenta_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Magenta");
+            penColor.Background = Brushes.Magenta;
+        }
+
+        private void colorOrange_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Orange");
+            penColor.Background = Brushes.Orange;
+        }
+
+        private void colorCorale_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Corale");
+            penColor.Background = Brushes.Coral;
+        }
+
+        private void colorYellow_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Yellow");
+            penColor.Background = Brushes.Yellow;
+        }
+
+        private void colorLightYellow_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("LightYellow");
+            penColor.Background = Brushes.LightYellow;
+        }
+
+        private void colorGreen_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Green");
+            penColor.Background = Brushes.Green;
+        }
+
+        private void colorLightGreen_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("LightGreen");
+            penColor.Background = Brushes.LightGreen;
+        }
+
+        private void colorDarkCyan_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("DarkCyan");
+            penColor.Background = Brushes.DarkCyan;
+        }
+
+        private void colorCyan_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Cyan");
+            penColor.Background = Brushes.Cyan;
+        }
+
+        private void colorPurple_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Purple");
+            penColor.Background = Brushes.Purple;
+        }
+
+        private void colorLightCoral_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("LightCoral");
+            penColor.Background = Brushes.LightCoral;
+        }
+
+        private void colorBlue_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("Blue");
+            penColor.Background = Brushes.Blue;
+        }
+
+        private void colorLightBlue_Click(object sender, RoutedEventArgs e)
+        {
+            colorPen = System.Drawing.Color.FromName("LightBlue");
+            penColor.Background = Brushes.LightBlue;
         }
     }
 }

@@ -20,18 +20,19 @@
             <Fluent:Ribbon.Menu>
                 <Fluent:Backstage Header="File">
                     <Fluent:BackstageTabControl>
-                        <Fluent:BackstageTabItem Header="New">
-                            <Button Content="New File" Width="80" Height="35" ></Button>
-                        </Fluent:BackstageTabItem>
+                        <Fluent:BackstageTabItem Header="New File" Name="NewFile" MouseDoubleClick="NewFile_MouseDoubleClick"/>
+                        <Fluent:BackstageTabItem Header="Save File" Name="SaveFile" MouseDoubleClick="SaveFile_MouseDoubleClick" />
+
+
                     </Fluent:BackstageTabControl>
                 </Fluent:Backstage>
             </Fluent:Ribbon.Menu>
 
             <!--Tabs-->
             <Fluent:RibbonTabItem Header="Home">
-                <Fluent:RibbonGroupBox Header="Tools">
+                <Fluent:RibbonGroupBox Header="Shapes">
                     <StackPanel Margin=" 5 5 5 5">
-                    <Label Content="Tools"  ></Label>
+                    <Label Content="Shapes"  ></Label>
                     <ComboBox  Width="125" Name="methodComboBox" DisplayMemberPath="Value.Name"
           SelectedValuePath="Key" ItemsSource="{Binding _prototypes}"  SelectionChanged="methodComboBox_SelectionChanged" >
 
@@ -42,6 +43,72 @@
 
                     </StackPanel>
                 </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Pen Color">
+                    <Label Content="Pen Color" Name="penColor" Background="Black" Height="65"></Label>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Color" >
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorBlack" Content="Black" Background="Black" BorderBrush="Black" Click="colorBlack_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorWhite" Content="White" Background="White" BorderBrush="Black" Click="colorWhite_Click" ></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorGray" Content="Gray" Background="Gray" BorderBrush="Black" Click="colorGray_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorSilver" Content="Silver" Background="Silver" BorderBrush="Black" Click="colorSilver_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorMaroon" Content="Maroon" Background="Maroon" BorderBrush="Black" Click="colorMaroon_Click" ></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorOlive" Content="Olive" Background="Olive" BorderBrush="Black" Click="colorOlive_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorRed" Content="Red" Background="Red" BorderBrush="Black" Click="colorRed_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorMagenta" Content="Magenta" Background="Magenta" BorderBrush="Black" Click="colorMagenta_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorOrange" Content="Orange" Background="Orange" BorderBrush="Black" Click="colorOrange_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorCorale" Content="Coral" Background="LightSalmon" BorderBrush="Black" Click="colorCorale_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorYellow" Content="Yellow" Background="Yellow" BorderBrush="Black" Click="colorYellow_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorLightYellow" Content="LightYellow" Background="LightYellow" BorderBrush="Black" Click="colorLightYellow_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorGreen" Content="Green" Background="Green" BorderBrush="Black" Click="colorGreen_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorLightGreen" Content="LightGreen" Background="LightGreen" BorderBrush="Black" Click="colorLightGreen_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorDarkCyan" Content="DarkCyan" Background="DarkCyan" BorderBrush="Black" Click="colorDarkCyan_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorCyan" Content="Cyan" Background="Cyan" BorderBrush="Black" Click="colorCyan_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorPurple" Content="Purple" Background="Purple" BorderBrush="Black" Click="colorPurple_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorLightCoral" Content="LightCoral" Background="LightCoral" BorderBrush="Black" Click="colorLightCoral_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorBlue" Content="Blue" Background="Blue" BorderBrush="Black" Click="colorBlue_Click"></Fluent:Button>
+                    </StackPanel>
+                    <StackPanel Margin="5 5 5 5" Width="25" Height="25">
+                        <Fluent:Button x:Name="colorLightBlue" Content="LightBlue" Background="LightBlue" BorderBrush="Black" Click="colorLightBlue_Click"></Fluent:Button>
+                    </StackPanel>
+                </Fluent:RibbonGroupBox>
+                
                 <Fluent:RibbonGroupBox Header="Parameter" HorizontalAlignment="Left" >
 
                     <StackPanel Margin="5 5 5 5">
@@ -55,17 +122,7 @@
                         <ComboBoxItem Content="5" ></ComboBoxItem>
                     </ComboBox>
                     </StackPanel>
-                    <StackPanel Margin="5 5 5 5">
-                        <Label Content="Color">
-                        </Label>
-                        <ComboBox x:Name="colorComboBox" >
-                            <ComboBoxItem Content="Black" IsSelected="True"></ComboBoxItem>
-                            <ComboBoxItem Content="White" ></ComboBoxItem>
-                            <ComboBoxItem Content="Red" ></ComboBoxItem>
-                            <ComboBoxItem Content="Green" ></ComboBoxItem>
-                            <ComboBoxItem Content="Blue" ></ComboBoxItem>
-                        </ComboBox>
-                    </StackPanel>
+                    
                     <StackPanel Margin="5 5 5 5">
                         <Label Content="Border"></Label>
                         <ComboBox x:Name="borderComboBox" >
