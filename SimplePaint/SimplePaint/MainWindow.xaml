@@ -6,7 +6,7 @@
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
         xmlns:local="clr-namespace:SimplePaint"
         mc:Ignorable="d"
-        Title="Simple Paint" Height="450" Width="800" Loaded="RibbonWindow_Loaded">
+        Title="Simple Paint" Height="450" Width="800" Loaded="RibbonWindow_Loaded" WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -32,11 +32,26 @@
                 <Fluent:RibbonGroupBox Header="Options">
                     <Label Content="Method"></Label>
                     <ComboBox  Width="125" Name="methodComboBox" DisplayMemberPath="Value.Name"
-          SelectedValuePath="Key" ItemsSource="{Binding _prototypes}"   >
+          SelectedValuePath="Key" ItemsSource="{Binding _prototypes}"  SelectionChanged="methodComboBox_SelectionChanged" >
                         
                         
                     </ComboBox>
-                    
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="40" Name="prototypesStackPanel">
+                        
+                    </StackPanel>
+
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Tool">
+                    <Fluent:Button Header="Load Images" Name="LoadImages" Click="LoadImages_Click">
+                        <Fluent:Button.LargeIcon>
+                            <Image Source="/icons/LoadPreset.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button Header="Save Images"  Name="SaveImages" Click="SaveImages_Click" >
+                        <Fluent:Button.LargeIcon>
+                            <Image Source="/icons/SavePreset.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>

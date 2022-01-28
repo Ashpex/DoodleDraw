@@ -27,10 +27,59 @@ namespace SimplePaint
         public MainWindow()
         {
             InitializeComponent();
+            KeyDown += new KeyEventHandler(OnButtonKeyDown);
+            KeyUp += new KeyEventHandler(OnButtonKeyUp);
         }
+        bool shiftMode;
+        bool ctrlMode;
+
+        private void OnButtonKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftShift)
+            {
+                shiftMode = false;
+            }
+            else if (e.Key == Key.LeftCtrl)
+            {
+                ctrlMode = false;
+            }
+        }
+
+        private void OnButtonKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftShift)
+            {
+                shiftMode = true;
+            }
+            else if (e.Key == Key.LeftCtrl)
+            {
+                ctrlMode = true;
+            }
+            else
+          if (e.Key == Key.Z && ctrlMode)
+            {
+                if (_shapes.Count > 0)
+                {
+                    _redos.Add(_shapes[_shapes.Count - 1]);
+                    _shapes.RemoveAt(_shapes.Count - 1);
+                }
+                canvas.Children.RemoveAt(canvas.Children.Count - 1);
+            }
+            else if (e.Key == Key.Y && ctrlMode)
+            {
+                if (_redos.Count > 0)
+                {
+                    _shapes.Add(_redos[_redos.Count - 1]);
+                    canvas.Children.Add(_shapes[_shapes.Count - 1].Draw());
+                    _redos.RemoveAt(_redos.Count - 1);
+                }
+            }
+        }
+
         List<IShape> _shapes = new List<IShape>();
-        Dictionary<string, IShape> _prototypes =
-            new Dictionary<string, IShape>();
+        List<IShape> _redos = new List<IShape>();
+        Dictionary<string, IShape> _prototypes = new Dictionary<string, IShape>();
+        Dictionary<int, List<Image>> images = new Dictionary<int, List<Image>>();
         string _selectedShapeName = "";
         bool _isDrawing = false;
         IShape _preview;
@@ -72,7 +121,8 @@ namespace SimplePaint
                             }
                         }
                     }
-
+                    _prototypes.Remove("Point");
+                    _preview = _prototypes.First().Value.Clone();
                     methodComboBox.ItemsSource = _prototypes;
 
                 }
@@ -83,27 +133,17 @@ namespace SimplePaint
             }
 
         }
-
+       
         private void canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //System.Windows.Controls.ComboBox methodComboBox = (System.Windows.Controls.ComboBox)sender;
-            KeyValuePair < string, IShape > selectedEntry
-    = (KeyValuePair < string, IShape>)methodComboBox.SelectedItem;
-
-            ////var tmp  = methodComboBox.SelectedItem as Dictionary<string, IShape>;
-            _selectedShapeName = selectedEntry.Key;
-
-
-            if (_selectedShapeName == null)
-            {
-                return;
-            }
-            _preview = _prototypes[_selectedShapeName];
+            
             _isDrawing = true;
 
             Point pos = e.GetPosition(canvas);
-
-            _preview.HandleStart(pos.X, pos.Y);
+            if (_preview != null)
+            {
+                _preview.HandleStart(pos.X, pos.Y);
+            }
         }
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
@@ -118,9 +158,16 @@ namespace SimplePaint
                 canvas.Children.Clear();
 
                 // Vẽ lại các hình trước đó
-                foreach (var shape in _shapes)
+                for (int i = 0; i < _shapes.Count; i++)
                 {
-                    UIElement element = shape.Draw();
+                    if (images.ContainsKey(i))
+                    {
+                        foreach (var image in images[i])
+                        {
+                            canvas.Children.Add(image);
+                        }
+                    }
+                    var element = _shapes[i].Draw();
                     canvas.Children.Add(element);
                 }
 
@@ -135,23 +182,126 @@ namespace SimplePaint
         {
             
             _isDrawing = false;
-
+            
             // Thêm đối tượng cuối cùng vào mảng quản lí
             Point pos = e.GetPosition(canvas);
-            _preview.HandleEnd(pos.X, pos.Y);
-            _shapes.Add(_preview);
-
-            // Sinh ra đối tượng mẫu kế
-            _preview = _prototypes[_selectedShapeName].Clone();
-
-            // Ve lai Xoa toan bo
-            canvas.Children.Clear();
-
-            // Ve lai tat ca cac hinh
-            foreach (var shape in _shapes)
+            if (_preview != null)
             {
-                var element = shape.Draw();
-                canvas.Children.Add(element);
+                _preview.HandleEnd(pos.X, pos.Y);
+
+                _shapes.Add(_preview);
+                if (_selectedShapeName == "")
+                {
+                    return;
+                }
+                // Sinh ra đối tượng mẫu kế
+                _preview = _prototypes[_selectedShapeName].Clone();
+
+                // Ve lai Xoa toan bo
+                canvas.Children.Clear();
+
+                // Ve lai tat ca cac hinh
+                for (int i = 0; i < _shapes.Count; i++)
+                {
+                    if (images.ContainsKey(i))
+                    {
+                        foreach (var image in images[i])
+                        {
+                            canvas.Children.Add(image);
+                        }
+                    }
+                    var element = _shapes[i].Draw();
+                    canvas.Children.Add(element);
+                }
+            }
+        }
+        private int index = -1;
+        private void methodComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (methodComboBox.SelectedIndex != index)
+            {
+
+                KeyValuePair<string, IShape> selectedEntry = (KeyValuePair<string, IShape>)methodComboBox.SelectedItem;
+
+
+                _selectedShapeName = selectedEntry.Key;
+
+
+                if (_selectedShapeName == null)
+                {
+                    return;
+                }
+                _preview = _prototypes[_selectedShapeName];
+                index = methodComboBox.SelectedIndex;
+            }
+        }
+
+        private void LoadImages_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.Title = "Load image";
+            openFileDialog.Filter = "Images|*.png;*.bmp;*.jpg";
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == true)
+            {
+                _preview = null;
+                CreateLoadBitmap(ref canvas, openFileDialog.FileName);
+            };
+        }
+
+        private void SaveImages_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+            
+            saveFileDialog.Filter = "Images|*.png";
+            saveFileDialog.Title = "Save as PNG";
+            saveFileDialog.RestoreDirectory = true;
+            Nullable<bool> result = saveFileDialog.ShowDialog();
+            if (result == true)
+            {
+                String fileName = saveFileDialog.FileName;
+                CreateSaveBitmap(canvas, fileName);
+            }
+        }
+        private void CreateLoadBitmap(ref Canvas canvas, string filename)
+        {
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(filename, UriKind.Absolute);
+            bitmap.EndInit();
+
+            Image image = new Image();
+            image.Source = bitmap;
+            image.Width = bitmap.Width;
+            image.Height = bitmap.Height;
+            if (bitmap.Width > canvas.Width || double.IsNaN(canvas.Width))
+            {
+                canvas.Width = bitmap.Width > canvas.ActualWidth ? bitmap.Width : double.NaN;
+            }
+            if (bitmap.Height > canvas.Height || double.IsNaN(canvas.Height))
+            {
+                canvas.Height = bitmap.Height > canvas.ActualHeight ? bitmap.Height : double.NaN;
+            }
+            if (!images.ContainsKey(_shapes.Count))
+            {
+                images[_shapes.Count] = new List<Image>();
+            }
+            images[_shapes.Count].Add(image);
+            canvas.Children.Add(image);
+        }
+        private void CreateSaveBitmap(Canvas canvas, string filename)
+        {
+            RenderTargetBitmap renderBitmap = new RenderTargetBitmap((int)canvas.ActualWidth, (int)canvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
+            canvas.Measure(new Size((int)canvas.ActualWidth, (int)canvas.ActualHeight));
+            canvas.Arrange(new Rect(new Size((int)canvas.ActualWidth, (int)canvas.ActualHeight)));
+
+            renderBitmap.Render(canvas);
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+
+            using (FileStream file = File.Create(filename))
+            {
+                encoder.Save(file);
             }
         }
     }
