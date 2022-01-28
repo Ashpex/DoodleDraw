@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Paint_</RootNamespace>
     <AssemblyName>Paint+</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,12 +37,39 @@
   <PropertyGroup>
     <ApplicationIcon>paint.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BaseObj, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\BaseObj.dll</HintPath>
+    </Reference>
     <Reference Include="ControlzEx, Version=2.2.0.4, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.2.2.0.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="EllipseObj, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\EllipseObj.dll</HintPath>
+    </Reference>
     <Reference Include="Fluent, Version=5.0.2.46, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
       <HintPath>..\packages\Fluent.Ribbon.5.0.2.46\lib\net45\Fluent.dll</HintPath>
+    </Reference>
+    <Reference Include="LineObj, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\LineObj.dll</HintPath>
+    </Reference>
+    <Reference Include="PolygonObj, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\PolygonObj.dll</HintPath>
+    </Reference>
+    <Reference Include="PolyLineObj, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\PolyLineObj.dll</HintPath>
+    </Reference>
+    <Reference Include="RectangleObj, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\RectangleObj.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -59,6 +87,10 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="TextObj, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\TextObj.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -68,21 +100,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Objects\BaseObject.cs" />
     <Compile Include="Converters\BoolToVisibility.cs" />
     <Compile Include="Converters\FluentColorConvert.cs" />
     <Compile Include="Tools\ImageProcess.cs" />
     <Compile Include="ResizeWindow.xaml.cs">
       <DependentUpon>ResizeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Objects\TextObject.cs" />
     <Compile Include="Tools\FileSystem.cs" />
     <Compile Include="Tools\History.cs" />
-    <Compile Include="Objects\PolyGonObject.cs" />
-    <Compile Include="Objects\PolyLineObject.cs" />
-    <Compile Include="Objects\EllipseObject.cs" />
-    <Compile Include="Objects\RectangleObject.cs" />
-    <Compile Include="Objects\LineObject.cs" />
     <Compile Include="Tools\Selector.cs" />
     <Compile Include="Converters\TransparentToBool.cs" />
     <Page Include="ItemLayer.xaml">

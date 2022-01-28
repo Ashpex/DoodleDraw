@@ -1,4 +1,5 @@
-﻿using System;
+using BaseObj;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Paint_
+namespace TextObj
 {
     public class TextObject : BaseObject
     {
@@ -19,7 +20,7 @@ namespace Paint_
             rect = new TextBlock();
 
             rect.TextWrapping = TextWrapping.Wrap;
- 
+
             //rect.Foreground = new SolidColorBrush(colorStroke);
 
             Canvas.SetLeft(rect, 0);

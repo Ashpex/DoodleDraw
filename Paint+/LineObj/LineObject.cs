@@ -1,4 +1,5 @@
-﻿using System;
+using BaseObj;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +9,18 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Paint_
+namespace LineObj
 {
-    public class RectangleObject : BaseObject
+    public class LineObject : BaseObject
     {
-        public Rectangle rect;
+        public Line rect;
         public UIElement Create()
         {
-            rect = new Rectangle();
-            rect.Width = 300;
-            rect.Height = 300;
+            rect = new Line();
+            rect.X1 = 0;
+            rect.X2 = 300;
+            rect.Y1 = 0;
+            rect.Y2 = 300;
             Canvas.SetLeft(rect, 0);
             Canvas.SetTop(rect, 0);
             return rect;
@@ -57,9 +60,5 @@ namespace Paint_
                 rect.StrokeDashArray = new System.Windows.Media.DoubleCollection(dashes);
             }
         }
-
-
-
     }
-
 }

@@ -1,4 +1,10 @@
-﻿using System;
+﻿using BaseObj;
+using EllipseObj;
+using LineObj;
+using PolyGonObj;
+using PolyLineObj;
+using RectangleObj;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TextObj;
 
 namespace Paint_
 {
@@ -76,7 +83,7 @@ namespace Paint_
 
                 objectBase.setColor(value);
                 objectBase.colorStroke = value;
-                
+
             }
         }
 
@@ -272,10 +279,6 @@ namespace Paint_
                     ((TextObject)objectBase).rect.FontFamily = value;
             }
         }
-        #endregion
-
-        #region Delegate
-
         #endregion
 
         #region Contructor

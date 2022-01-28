@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +8,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Paint_
+namespace BaseObj
 {
-
     public enum StyleLines
     {
         Soild,
@@ -23,7 +22,7 @@ namespace Paint_
     {
         #region Members
         // Object properties
-        public  bool selected = false;
+        public bool selected = false;
         public Color colorStroke;
         public Color colorFill;
         public int penWidth = 1;

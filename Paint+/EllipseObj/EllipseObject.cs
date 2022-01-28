@@ -1,4 +1,5 @@
-﻿using System;
+using BaseObj;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,24 +9,18 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Paint_
+namespace EllipseObj
 {
-    public class PolyLineObject : BaseObject
+    public class EllipseObject : BaseObject
     {
-        public Polyline rect;
+        public Ellipse rect;
         public UIElement Create()
         {
-            rect = new Polyline();
+            rect = new Ellipse();
+            rect.Width = 300;
+            rect.Height = 300;
             Canvas.SetLeft(rect, 0);
             Canvas.SetTop(rect, 0);
-            //rect.Stroke = new SolidColorBrush(colorStroke);
-            //rect.Fill = new SolidColorBrush(colorFill);
-            Point Point1 = new System.Windows.Point(0, 0);
-            PointCollection polygonPoints = new PointCollection();
-            polygonPoints.Add(Point1);
-            // rect.StrokeThickness = penWidth;
-            rect.Points = polygonPoints;
-
             return rect;
         }
         public override void setColor(Color color)
