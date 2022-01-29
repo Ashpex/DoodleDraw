@@ -52,4 +52,7 @@ Simple Paint  là một phần mềm Windows cho phép người dùng thực hi�
 | Trương Quốc Vương | 19120728 |  10  |
 | Nguyễn Minh Phụng | 19120622 |  10  |
 
-## 
+## Demo
+
+- Demo các thao tác với ứng dụng : [Paint Project](https://www.youtube.com/watch?v=yfsAIfUZOaM&feature=youtu.be) (Youtube)
+- [Google Drive](https://drive.google.com/file/d/18mjjW1I54JAw8089Nc3qeSVb2Mlcbw7-/view) : Dự phòng
