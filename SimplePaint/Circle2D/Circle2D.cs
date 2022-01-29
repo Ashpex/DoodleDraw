@@ -7,6 +7,7 @@ using System.Windows.Shapes;
 
 namespace Circle2D
 {
+    [Serializable]
     class Circle2D : IShape
     {
         private Point2D _leftTop = new Point2D();
@@ -26,8 +27,8 @@ namespace Circle2D
             {
                 circle = new Ellipse()
                 {
-                    Width = Math.Abs(_rightBottom.X - _leftTop.X),
-                    Height = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Width = Math.Sqrt((Math.Pow(_rightBottom.X - _leftTop.X, 2) + Math.Pow(_rightBottom.Y - _leftTop.Y, 2)) / 2),
+                    Height = Math.Sqrt((Math.Pow(_rightBottom.X - _leftTop.X, 2) + Math.Pow(_rightBottom.Y - _leftTop.Y, 2)) / 2),
                     Stroke = new SolidColorBrush(Color),
                     StrokeThickness = StrokeThickness,
                     StrokeDashArray = DoubleCollection.Parse(Border.ToString())
@@ -37,32 +38,40 @@ namespace Circle2D
             {
                 circle = new Ellipse()
                 {
-                    Width = Math.Abs(_rightBottom.X - _leftTop.X),
-                    Height = Math.Abs(_rightBottom.X - _leftTop.X),
+                    Width = Math.Sqrt((Math.Pow(_rightBottom.X - _leftTop.X, 2) + Math.Pow(_rightBottom.Y - _leftTop.Y, 2)) / 2),
+                    Height = Math.Sqrt((Math.Pow(_rightBottom.X - _leftTop.X, 2) + Math.Pow(_rightBottom.Y - _leftTop.Y, 2)) / 2),
                     Stroke = new SolidColorBrush(Color),
                     StrokeThickness = StrokeThickness,
                     
                 };
             }
-            if (_leftTop.X - _rightBottom.X < 0 && _leftTop.Y - _rightBottom.Y < 0)
+
+            double temp = Math.Sqrt((Math.Pow(_rightBottom.X - _leftTop.X, 2) + Math.Pow(_rightBottom.Y - _leftTop.Y, 2)) / 2);
+            if (_rightBottom.X >= _leftTop.X)
             {
-                Canvas.SetLeft(circle, _leftTop.X);
-                Canvas.SetTop(circle, _leftTop.Y);
+                if (_rightBottom.Y >= _leftTop.Y)
+                {
+                    Canvas.SetLeft(circle, _leftTop.X);
+                    Canvas.SetTop(circle, _leftTop.Y);
+                }
+                else
+                {
+                    Canvas.SetLeft(circle, _leftTop.X);
+                    Canvas.SetTop(circle, _leftTop.Y - temp);
+                }
             }
-            else if (_leftTop.X - _rightBottom.X > 0 && _leftTop.Y - _rightBottom.Y > 0)
+            else
             {
-                Canvas.SetLeft(circle, _rightBottom.X);
-                Canvas.SetTop(circle, _rightBottom.Y);
-            }
-            else if (_leftTop.X - _rightBottom.X < 0 && _leftTop.Y - _rightBottom.Y > 0)
-            {
-                Canvas.SetLeft(circle, _leftTop.X);
-                Canvas.SetTop(circle, _rightBottom.Y);
-            }
-            else if (_leftTop.X - _rightBottom.X > 0 && _leftTop.Y - _rightBottom.Y < 0)
-            {
-                Canvas.SetLeft(circle, _rightBottom.X);
-                Canvas.SetTop(circle, _leftTop.Y);
+                if (_rightBottom.Y >= _leftTop.Y)
+                {
+                    Canvas.SetLeft(circle, _leftTop.X - temp);
+                    Canvas.SetTop(circle, _leftTop.Y);
+                }
+                else
+                {
+                    Canvas.SetLeft(circle, _leftTop.X - temp);
+                    Canvas.SetTop(circle, _leftTop.Y - temp);
+                }
             }
 
             return circle;
@@ -87,6 +96,24 @@ namespace Circle2D
 
         public void  setValue(Color color, double strokeThickness,double border)
         {
+            Color = color;
+            StrokeThickness = strokeThickness;
+            Border = border;
+        }
+
+        public void getValueSave(ref Color color, ref Point2D leftTop, ref Point2D rightBottom, ref double strokeThickness, ref double border)
+        {
+            color = Color;
+            leftTop = _leftTop;
+            rightBottom = _rightBottom;
+            strokeThickness = StrokeThickness;
+            border = Border;
+        }
+
+        public void setValueSave(ref Color color, ref Point2D leftTop, ref Point2D rightBottom, ref double strokeThickness, ref double border)
+        {
+            _leftTop = leftTop;
+            _rightBottom = rightBottom;
             Color = color;
             StrokeThickness = strokeThickness;
             Border = border;

@@ -1,11 +1,15 @@
 ﻿using Contract;
 using Fluent;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
+
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -83,13 +87,11 @@ namespace SimplePaint
         string _selectedShapeName = "";
         bool _isDrawing = false;
         IShape _preview;
-        System.Drawing.Color colorPen;
+        System.Drawing.Color colorPen = System.Drawing.Color.FromName("Black"); 
         private void RibbonWindow_Loaded(object sender, RoutedEventArgs e)
         {
             try
-            {
-
-                
+            { 
 
                 string exePath = Assembly.GetExecutingAssembly().Location;
                 string folder = System.IO.Path.GetDirectoryName(exePath);
@@ -466,5 +468,127 @@ namespace SimplePaint
             colorPen = System.Drawing.Color.FromName("LightBlue");
             penColor.Background = Brushes.LightBlue;
         }
+
+        private void RibbonWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            List<Data> data= new List<Data>();
+            for (int i = 0; i < _shapes.Count; i++)
+            {
+                Data newData = new Data();
+                newData.Name = _shapes[i].Name;
+                _shapes[i].getValueSave(ref newData.Color, ref newData._leftTop, ref newData._rightBottom, ref newData.StrokeThickness, ref newData.Border);
+                data.Add(newData);
+            }
+            //string jsonShape = JsonSerializer.Serialize(data);
+            string jsonShape = JsonConvert.SerializeObject(data.ToArray());
+            File.WriteAllText("shape.json", jsonShape);
+
+            List<Data> dataRedos = new List<Data>();
+            for (int i = 0; i < _redos.Count; i++)
+            {
+                Data newData = new Data();
+                newData.Name = _redos[i].Name;
+                _redos[i].getValueSave(ref newData.Color, ref newData._leftTop, ref newData._rightBottom, ref newData.StrokeThickness, ref newData.Border);
+                dataRedos.Add(newData);
+            }
+
+            string jsonRedos = JsonConvert.SerializeObject(dataRedos.ToArray());
+            File.WriteAllText("redos.json", jsonRedos);
+            //string jsonRedos = JsonSerializer.Serialize(_redos);
+            //File.WriteAllText("redos.json", jsonRedos);
+        }
+
+        private void RibbonWindow_SourceInitialized(object sender, EventArgs e)
+        {
+            List<Data> dataShape = new List<Data>();
+            List<Data> dataRedos = new List<Data>();
+            try
+            {
+                using (StreamReader r = new StreamReader("shape.json"))
+                {
+                    string json = r.ReadToEnd();
+                    dataShape = JsonConvert.DeserializeObject<List<Data>>(json);
+                }
+            }
+            catch (Exception)
+            { }
+            try
+            {
+                using (StreamReader r = new StreamReader("redos.json"))
+                {
+                    string json = r.ReadToEnd();
+                    dataRedos = JsonConvert.DeserializeObject<List<Data>>(json);
+                }
+            }
+            catch (Exception)
+            { }
+            
+
+            for(int i =0;i< dataShape.Count; i++)
+            {
+                IShape tmp = _prototypes[dataShape[i].Name].Clone();
+                tmp.setValueSave(ref dataShape[i].Color, ref dataShape[i]._leftTop, ref dataShape[i]._rightBottom, ref dataShape[i].StrokeThickness, ref dataShape[i].Border);
+                _shapes.Add(tmp);
+            }
+            // Ve lai tat ca cac hinh
+            for (int i = 0; i < _shapes.Count; i++)
+            {
+                if (images.ContainsKey(i))
+                {
+                    foreach (var image in images[i])
+                    {
+                        canvas.Children.Add(image);
+                    }
+                }
+                var element = _shapes[i].Draw();
+                canvas.Children.Add(element);
+            }
+            if (dataRedos == null)
+            {
+                return;
+            }
+            for (int i = 0; i < dataRedos.Count; i++)
+            {
+                IShape tmp = _prototypes[dataRedos[i].Name].Clone();
+                tmp.setValueSave(ref dataRedos[i].Color, ref dataRedos[i]._leftTop, ref dataRedos[i]._rightBottom, ref dataRedos[i].StrokeThickness, ref dataRedos[i].Border);
+                _redos.Add(tmp);
+            }
+        }
+
+        private void btnUndot_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (_shapes.Count > 0)
+            {
+                _redos.Add(_shapes[_shapes.Count - 1]);
+                _shapes.RemoveAt(_shapes.Count - 1);
+            }
+            try
+            {
+                canvas.Children.RemoveAt(canvas.Children.Count - 1);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            canvas.Children.Clear();
+            _shapes.Clear();
+            _redos.Clear();
+        }
+
+        private void btnRedo_Click(object sender, RoutedEventArgs e)
+        {
+            if (_redos.Count > 0)
+            {
+                _shapes.Add(_redos[_redos.Count - 1]);
+                canvas.Children.Add(_shapes[_shapes.Count - 1].Draw());
+                _redos.RemoveAt(_redos.Count - 1);
+            }
+        }
+
     }
 }

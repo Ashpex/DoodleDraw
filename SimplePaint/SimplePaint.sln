@@ -5,17 +5,22 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplePaint", "SimplePaint\SimplePaint.csproj", "{2590F66C-C4F1-4B37-9EE5-F1DD3856D969}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contract", "Contract\Contract.csproj", "{A88A2735-3843-4266-BDE4-E2BBDA2FFBF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contract", "Contract\Contract.csproj", "{A88A2735-3843-4266-BDE4-E2BBDA2FFBF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Circle2D", "Circle2D\Circle2D.csproj", "{8C87440C-1675-4C14-BC36-F0F113EE8F5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Circle2D", "Circle2D\Circle2D.csproj", "{8C87440C-1675-4C14-BC36-F0F113EE8F5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ellipse2D", "Ellipse2D\Ellipse2D.csproj", "{E6942449-49A5-44CD-85DD-E68D3E9A3FBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ellipse2D", "Ellipse2D\Ellipse2D.csproj", "{E6942449-49A5-44CD-85DD-E68D3E9A3FBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Line2D", "Line2D\Line2D.csproj", "{AC6870DE-F15D-4BD4-A184-F673616C871D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Line2D", "Line2D\Line2D.csproj", "{AC6870DE-F15D-4BD4-A184-F673616C871D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rectangle2D", "Rectangle2D\Rectangle2D.csproj", "{509E5134-05E2-4D2C-86F0-B2C4B8BBE009}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rectangle2D", "Rectangle2D\Rectangle2D.csproj", "{509E5134-05E2-4D2C-86F0-B2C4B8BBE009}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Square2D", "Square2D\Square2D.csproj", "{5F889446-B5D7-4F78-9CDF-D47A883E5E7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Square2D", "Square2D\Square2D.csproj", "{5F889446-B5D7-4F78-9CDF-D47A883E5E7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D99333A1-D3F4-400F-86ED-D1F434468AF1}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

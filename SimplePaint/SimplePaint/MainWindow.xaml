@@ -6,7 +6,7 @@
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
         xmlns:local="clr-namespace:SimplePaint"
         mc:Ignorable="d"
-        Title="Simple Paint" Height="450" Width="800" Loaded="RibbonWindow_Loaded" WindowState="Maximized">
+        Title="Simple Paint" Height="461" Width="822" Loaded="RibbonWindow_Loaded" WindowState="Maximized" Closing="RibbonWindow_Closing" SourceInitialized="RibbonWindow_SourceInitialized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -30,14 +30,30 @@
 
             <!--Tabs-->
             <Fluent:RibbonTabItem Header="Home">
+                <Fluent:RibbonGroupBox Header="Tools">
+                    <Fluent:Button Header="Reset" Name="btnReset" Click="btnReset_Click">
+                        <Fluent:Button.LargeIcon>
+                            <Image Source="/icons/reset.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button Header="Undo" Name="btnUndot" Click="btnUndot_Click">
+                        <Fluent:Button.LargeIcon>
+                            <Image Source="/icons/undo.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button Header="Redo" Name="btnRedo" Click="btnRedo_Click">
+                        <Fluent:Button.LargeIcon>
+                            <Image Source="/icons/redo.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox Header="Shapes">
                     <StackPanel Margin=" 5 5 5 5">
-                    <Label Content="Shapes"  ></Label>
-                    <ComboBox  Width="125" Name="methodComboBox" DisplayMemberPath="Value.Name"
+                        <Label Content="Shapes"  ></Label>
+                        <ComboBox  Width="125" Name="methodComboBox" DisplayMemberPath="Value.Name"
           SelectedValuePath="Key" ItemsSource="{Binding _prototypes}"  SelectionChanged="methodComboBox_SelectionChanged" >
 
-
-                    </ComboBox>
+                        </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="40" Name="prototypesStackPanel">
 
@@ -108,21 +124,20 @@
                         <Fluent:Button x:Name="colorLightBlue" Content="LightBlue" Background="LightBlue" BorderBrush="Black" Click="colorLightBlue_Click"></Fluent:Button>
                     </StackPanel>
                 </Fluent:RibbonGroupBox>
-                
                 <Fluent:RibbonGroupBox Header="Parameter" HorizontalAlignment="Left" >
 
                     <StackPanel Margin="5 5 5 5">
-                    <Label Content="Size" >
-                    </Label>
-                    <ComboBox x:Name="sizeComboBox">
-                        <ComboBoxItem Content="1" IsSelected="True"></ComboBoxItem>
-                        <ComboBoxItem Content="2" ></ComboBoxItem>
-                        <ComboBoxItem Content="3" ></ComboBoxItem>
-                        <ComboBoxItem Content="4" ></ComboBoxItem>
-                        <ComboBoxItem Content="5" ></ComboBoxItem>
-                    </ComboBox>
+                        <Label Content="Size" >
+                        </Label>
+                        <ComboBox x:Name="sizeComboBox">
+                            <ComboBoxItem Content="1" IsSelected="True"></ComboBoxItem>
+                            <ComboBoxItem Content="2" ></ComboBoxItem>
+                            <ComboBoxItem Content="3" ></ComboBoxItem>
+                            <ComboBoxItem Content="4" ></ComboBoxItem>
+                            <ComboBoxItem Content="5" ></ComboBoxItem>
+                        </ComboBox>
                     </StackPanel>
-                    
+
                     <StackPanel Margin="5 5 5 5">
                         <Label Content="Border"></Label>
                         <ComboBox x:Name="borderComboBox" >

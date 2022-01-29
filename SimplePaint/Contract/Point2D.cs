@@ -9,6 +9,7 @@ using System.Windows.Shapes;
 
 namespace Contract
 {
+    [Serializable]
     public class Point2D : IShape
     {
         public double X { get; set; }
@@ -16,8 +17,8 @@ namespace Contract
 
         public string Name => "Point";
 
-        public Color Color { get => Colors.Black; set => Color = value; }
-        public double StrokeThickness { get => 1; set => StrokeThickness=value; }
+        public Color Color = Colors.Black;
+        public double StrokeThickness = 1;
         public double Border = 0;
         public void HandleStart(double x, double y)
         {
@@ -61,6 +62,16 @@ namespace Contract
             Color = color;
             StrokeThickness = strokeThickness;
             Border = border;
+        }
+
+        public void getValueSave(ref Color color, ref Point2D leftTop, ref Point2D rightBottom, ref double strokeThickness, ref double border)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void setValueSave(ref Color color, ref Point2D leftTop, ref Point2D rightBottom, ref double strokeThickness, ref double border)
+        {
+            throw new NotImplementedException();
         }
     }
 }
