@@ -25,7 +25,6 @@ Simple Paint  là một phần mềm Windows cho phép người dùng thực hi�
 * Người dùng có thể xem bản xem trước của hình mà họ muốn vẽ.
 * Người dùng có thể hoàn thành bản xem trước bản vẽ và bản vẽ sẽ được lưu lại.
 * Danh sách các hình đã vẽ có thể được lưu và tải lại để tiếp tục sau. File được lưu dưới định dạng
-
 * Lưu và tải tất cả các đối tượng đã vẽ dưới dạng hình ảnh ở định dạng bmp / png / jpg (rasterization). 
 
 #### Một số đối tượng vẽ cơ bản
