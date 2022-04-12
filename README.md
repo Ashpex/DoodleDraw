@@ -51,7 +51,3 @@ Completed the essential requirements to a certain degree of completeness while a
 | Trương Quốc Vương | 19120728 |  10  |
 | Nguyễn Minh Phụng | 19120622 |  10  |
 
-## Demo
-
-- Demo operations with the application : [Paint Project](https://www.youtube.com/watch?v=yfsAIfUZOaM&feature=youtu.be) (Youtube)
-- [Google Drive](https://drive.google.com/file/d/18mjjW1I54JAw8089Nc3qeSVb2Mlcbw7-/view) : Backup
