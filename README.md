@@ -1,11 +1,11 @@
 # SimplePaint
-## Giới thiệu
+## Introduction
 
-Simple Paint  là một phần mềm Windows cho phép người dùng thực hiện các chức năng vẽ cơ bản.
+Simple Paint is a Windows program that allows users to perform basic drawing functions.
 
-**`Thành viên trong nhóm:`**
+**`Team members:`**
 
-|    **Họ tên**     | **MSSV** |
+|    **Fullname**     | **ID** |
 | :---------------: | :------: |
 |   Lê Hồng Quân    | 19120629 |
 | Bùi Ngọc Thảo Vy  | 19120729 |
@@ -14,38 +14,37 @@ Simple Paint  là một phần mềm Windows cho phép người dùng thực hi�
 
 
 
-## Mức độ hoàn thành
+## Completion level
 
-Đã hoàn tất các yêu cầu thiết yếu ở mức độ hoàn chỉnh nhất định đồng thời bổ sung một số cải tiến
+Completed the essential requirements to a certain degree of completeness while adding some improvements
+### Accomplished
 
-### Đã Hoàn thành
+- Dynamically loads all graphical objects that can be drawn from external DLLs.
+- user can select the shape to draw.
+- User can see a preview of the shape they want to draw.
+- User can complete the drawing preview and the drawing will be saved.
+- The list of drawn shapes can be saved and reloaded to continue later. The file is saved as
+- Save and load all drawn objects as images in bmp/png/jpg (rasterization) format.
 
-* Tải động tất cả các đối tượng đồ họa có thể được vẽ từ các tệp DLL bên ngoài.
-* Người dùng có thể chọn hình để vẽ.
-* Người dùng có thể xem bản xem trước của hình mà họ muốn vẽ.
-* Người dùng có thể hoàn thành bản xem trước bản vẽ và bản vẽ sẽ được lưu lại.
-* Danh sách các hình đã vẽ có thể được lưu và tải lại để tiếp tục sau. File được lưu dưới định dạng
-* Lưu và tải tất cả các đối tượng đã vẽ dưới dạng hình ảnh ở định dạng bmp / png / jpg (rasterization). 
+#### Some basic drawing objects
 
-#### Một số đối tượng vẽ cơ bản
+- Line: delimited by two points, the start point and the end point
+- Rectangle: bounded by two points, top left point and bottom right point
+- Ellipse: bounded by two points, top left point and bottom right point
 
-- Dòng: được giới hạn bởi hai điểm, điểm đầu và điểm cuối
-- Hình chữ nhật: được giới hạn bởi hai điểm, điểm trên cùng bên trái và điểm dưới cùng bên phải
-- Hình elip: được giới hạn bởi hai điểm, điểm trên cùng bên trái và điểm dưới cùng bên phải
+### Unfinished: None
 
-### Chưa Hoàn thành: Không có
+### Improvements
 
-### Cải tiến
+- Allows user to change color, pen width, stroke style (dash, period, dot dash...
+- Add images to the canvas.
+- Undo, Redo.
+- Automatically save drawing process to json file.
+- FluentUI modern interface design
 
-* Cho phép người dùng thay đổi màu sắc, độ rộng của bút, kiểu nét (dấu gạch ngang, dấu chấm, dấu chấm dấu gạch ngang ...
-* Thêm hình ảnh vào canvas.
-* Hoàn tác, Làm lại.
-* Tự động lưu quá trình vẽ vào file json.
-* Thiết kế theo giao diện hiện đại FluentUI
+## Suggested grades
 
-## Điểm đề nghị
-
-|    **Họ tên**     | **MSSV** | Điểm |
+|    **Fullname**     | **ID** | **Grade** |
 | :---------------: | :------: | :--: |
 |   Lê Hồng Quân    | 19120629 |  10  |
 | Bùi Ngọc Thảo Vy  | 19120729 |  10  |
@@ -54,5 +53,5 @@ Simple Paint  là một phần mềm Windows cho phép người dùng thực hi�
 
 ## Demo
 
-- Demo các thao tác với ứng dụng : [Paint Project](https://www.youtube.com/watch?v=yfsAIfUZOaM&feature=youtu.be) (Youtube)
-- [Google Drive](https://drive.google.com/file/d/18mjjW1I54JAw8089Nc3qeSVb2Mlcbw7-/view) : Dự phòng
+- Demo operations with the application : [Paint Project](https://www.youtube.com/watch?v=yfsAIfUZOaM&feature=youtu.be) (Youtube)
+- [Google Drive](https://drive.google.com/file/d/18mjjW1I54JAw8089Nc3qeSVb2Mlcbw7-/view) : Backup
