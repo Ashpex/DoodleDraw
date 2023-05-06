@@ -1,7 +1,7 @@
-# SimplePaint
+# DoodleDraw
 ## Introduction
 
-Simple Paint is a Windows program that allows users to perform basic drawing functions.
+DoodleDraw is a Windows program that allows users to perform basic drawing functions.
 
 **`Team members:`**
 
